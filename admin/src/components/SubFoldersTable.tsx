@@ -8,10 +8,21 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { SxProps } from '@mui/system'
 
 import FolderIcon from '@mui/icons-material/Folder';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
+type Props = {
+    title: string,
+    subCategories: Array<any>,
+    subItems: Array<any>,
+    refCategoryId: number,
+    previousRefCategory: number,
+    openCategory: (categoryId: number) => void,
+    openItem: (itemid: number) => void,
+}
 
 /*
 @param title - title of the table
@@ -21,11 +32,11 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 @param previousRefCategory - is id of previous category
 @param openCategory\openProduct - func to open the item
 */
-export default function SubFoldersTable({ title, subCategories, subItems, refCategoryId, previousRefCategory, openCategory, openItem }) {
+export default function SubFoldersTable({ title, subCategories, subItems, refCategoryId, previousRefCategory, openCategory, openItem }: Props) {
     const redirect = useRedirect()
 
-    const iconSX = {verticalAlign: 'bottom', margin: '0 10px'}
-    const rowSX = { '&:last-child td, &:last-child th': { border: 0 }, cursor: 'pointer' }
+    const iconSX: SxProps = {verticalAlign: 'bottom', margin: '0 10px'}
+    const rowSX: SxProps = { '&:last-child td, &:last-child th': { border: 0 }, cursor: 'pointer' }
 
     return (
         <TableContainer component={Paper}>

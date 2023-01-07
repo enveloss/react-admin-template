@@ -1,5 +1,5 @@
 import React from 'react'
-import { required } from 'react-admin';
+import { required, Validator } from 'react-admin';
 
 import {
 	RichTextInput,
@@ -9,7 +9,13 @@ import {
     LinkButtons
 } from 'ra-input-rich-text';
 
-export default function RichTextEditor({ source, validate=[required()], size="medium" }) {
+type Props = {
+    source: string,
+    validate:  Validator | Validator[] | undefined,
+    size?: "small" | "medium" | "large" | undefined 
+}
+
+export default function RichTextEditor({ source, validate, size }: Props) {
     return (
         <RichTextInput source={source} validate={validate} toolbar={
             <RichTextInputToolbar>

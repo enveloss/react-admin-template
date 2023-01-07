@@ -1,25 +1,25 @@
-import { fetchUtils } from 'react-admin';
-import config from './config';
+import { fetchUtils, DataProvider } from 'react-admin';
+import { CONFIG } from './config';
 
-export const sendPost = async (resource, method, body) => {
+export const sendPost = async (resource: string, method: string, body?: any) => {
     const response = await fetchUtils.fetchJson(
-        CONFIG.apiUrl + resource + method ,
+        CONFIG.API_URL + resource + method ,
         {
             method: 'POST',
             mode: 'cors',
             body: body 
                 ?JSON.stringify(body) 
                 :null,
-            headers: new Headers({
+            headers: {
                 'admin-token': sessionStorage.getItem('token')
-            })
+            } as HeadersInit
         }
     )
     return await response.json
 }
 
-const sendFile = async (formData) => {
-    const response = await fetch(config.API_URL + 'media/uploadFiles', {
+const sendFile = async (formData: FormData) => {
+    const response = await fetch(CONFIG.API_URL + 'media/uploadFiles', {
         method: 'POST',
         body: formData
     })
@@ -27,24 +27,24 @@ const sendFile = async (formData) => {
     return await response.json()
 }
 
-const dataProvider = {
-    getList: (resource, params) => {
+const dataProvider: DataProvider = {
+    getList: (resource: string, params: any) => {
         return sendPost(resource, '/getList')
     },
 
-    getOne: async (resource, params) => {
+    getOne: async (resource: string, params: any) => {
         return await sendPost(resource, '/getOne/' + params.id)
     },
 
-    getMany: (resource, params) => {
+    getMany: (resource: string, params: any) => {
         return sendPost(resource, '/getMany?ids=' + params.ids.join(' '))
     },
 
-    getManyReference: (resource, params) => {
-       
+    getManyReference: (resource: string, params: any): any => {
+        
     },
 
-    create: async (resource, params) => {
+    create: async (resource: string, params: any) => {
         if (params.data.image) {                
             const formData = new FormData();
             formData.append("files", params.data.image.rawFile);
@@ -59,7 +59,7 @@ const dataProvider = {
         })
     },
 
-    update: async (resource, params) => {
+    update: async (resource: string, params: any) => {
         if (params.data.image && typeof params.data.image !== 'string')  {                
             const formData = new FormData();
             formData.append("files", params.data.image.rawFile);
@@ -73,15 +73,15 @@ const dataProvider = {
         })
     },
 
-    updateMany: (resource, params) => {
+    updateMany: (resource: string, params: any): any => {
         
     },
 
-    delete: (resource, params) => {
+    delete: (resource: string, params: any) => {
         return sendPost(resource, '/deleteOne/' + params.id)
     },
 
-    deleteMany: (resource, params) => {
+    deleteMany: (resource: string, params: any) => {
         return sendPost(resource, '/deleteMany?ids=' + params.ids.join(' '))
     },
 }

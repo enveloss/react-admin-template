@@ -4,16 +4,17 @@ import CustomCard from './Card';
 import { sendPost } from '../../dataProvider';
 
 import { Card } from '@mui/material';
+import { SxProps } from '@mui/system'
 
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import CircularProgress from '@mui/material/CircularProgress';
 
-function kFormatter(num) {
-    return Math.abs(num) > 999 ? Math.sign(num)*((Math.abs(num)/1000).toFixed(1)) + 'k' : Math.sign(num)*Math.abs(num)
+type Response = {
+    userCount: number
 }
 
 export default function Dashboard() {
-    const [response, setResponse] = useState()
+    const [response, setResponse] = useState<Response>()
 
     useEffect(() => {
         (async () => {
@@ -23,7 +24,7 @@ export default function Dashboard() {
         })()
     }, [])
 
-    const cardStyles = {
+    const cardStyles: SxProps = {
         height: 'fit-content',
         width: '50%'
     }
@@ -47,7 +48,7 @@ export default function Dashboard() {
         >
             <CustomCard 
                 title="USERS COUNT"
-                body={kFormatter(response.userCount)}
+                body={String(response.userCount)}
                 subtitle={`Total ${response.userCount}`}
                 icon={<PeopleAltIcon />}
                 props={{

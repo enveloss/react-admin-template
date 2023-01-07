@@ -3,6 +3,7 @@
 ## What`s here?
 
 ## For react-admin:
+- TypeScript
 - data provider
 - auth provider
 - made a resource to setting up admins

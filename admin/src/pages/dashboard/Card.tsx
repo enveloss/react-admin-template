@@ -1,7 +1,16 @@
 import React from 'react'
 import { Avatar, Box, Card, CardContent, Grid, Paper, Typography } from '@mui/material';
 
-export default function CardItem({ title, body, subtitle, icon, props }) {
+type Props = {
+    title: string,
+    body: string,
+    subtitle: string, 
+    icon: JSX.Element,
+    props: object
+
+}
+
+export default function CardItem({ title, body, subtitle, icon, props }: Props) {
     return (
         <CardContent {...props} className="card">
             <Grid
