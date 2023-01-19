@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from services import APScheduler
+from modules import db
 
 import routes
 
@@ -20,7 +21,10 @@ app.add_middleware(
 
 @app.get('/')
 async def root():
-    return {'msg': 'It is a template of fastapi'}
+    return {'msg': 'root'}
 
+@app.on_event('startup')
+async def on_startup():
+    await db.database.create_all()
 
 APScheduler.setup()

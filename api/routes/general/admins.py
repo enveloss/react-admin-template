@@ -1,10 +1,5 @@
 from modules import *
-from .models import *
-from utils.dependencies import ADMIN_DEPENDS
-
-from fastapi.routing import APIRouter
-from pydantic import BaseModel
-from fastapi import HTTPException, Request
+from ..models import *
 
 from dataclasses import dataclass
 from hashlib import md5

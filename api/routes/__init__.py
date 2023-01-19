@@ -1,4 +1,4 @@
-from . import admins
+from . import general
 
 from utils.db_toolkit import db_toolkit as db
 from fastapi.routing import APIRouter
@@ -9,11 +9,7 @@ router = APIRouter(
 
 @router.get("/ping")
 async def ping():
-    try:
-        await db.database.create_all()
+    async with db.database.engine.begin():
         return {'ok': True}
-    
-    except:
-        return {'ok': False}
         
-router.include_router(admins.router)
+router.include_router(general.router)
