@@ -1,11 +1,13 @@
-FROM python:3.8.16-buster
+FROM python:3.9.16-slim-buster
 
 WORKDIR /app
 
-COPY requirements.txt .
+COPY ./api ./api
+COPY ./db_toolkit ./db_toolkit
 
-RUN pip install -r requirements.txt
+WORKDIR /app/api/src
 
-COPY . .
+RUN pip install poetry 
+RUN poetry install 
 
-CMD [ "uvicorn", "app:app", "--port", "80", "--host", "0.0.0.0" ]
+CMD [ "poetry", "run", "prod" ]

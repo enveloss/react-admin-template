@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "api"
+version = "0.1.0"
+description = ""
+authors = ["Enveloss"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+apscheduler = "3.9.1"
+fastapi = "0.88.0"
+py-json-config = "0.1.1"
+pydantic = "1.9.0"
+python-dotenv = "0.21.0"
+requests = "2.27.1"
+sqlalchemy = "1.4.35"
+asyncpg = "^0.27.0"
+uvicorn = "^0.20.0"
+
+[tool.poetry.scripts]
+dev = "asgi:start_dev" 
+prod = "asgi:start_prod"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
