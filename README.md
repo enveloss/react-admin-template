@@ -3,6 +3,7 @@
 ## What`s here?
 
 ## For react-admin:
+- Vite
 - TypeScript
 - data provider
 - auth provider
